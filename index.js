@@ -6,61 +6,95 @@ const fs = require('fs');
 const questions = [];
 
 // TODO: Create a function to write README file
-const writeToFile = ({username, city, bio, liurl, ghurl}) => 
-    `<!DOCTYPE html>
-    <html lang="en-US">
-    
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Test</title>
-      </head>
-    
-      <body>
-        <header class="header">
-        ${username}
-        </header>
-    
-        <section>
-        ${city}
-        ${bio}
-        ${liurl}
-        ${ghurl}
-        </section>
-        <script src="index.js"></script>
-      </body>
-    
-    </html>`;
+const writeToFile = ({title, description, installation, usage, license, contribute, test, questions}) => 
+`# ${title}
+
+## Description
+
+This is the ${description} section
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
+
+## Installation
+
+This is the ${installation} section
+
+## Usage
+
+This is the ${usage} section
+
+## License
+
+This is the ${license} section
+
+## Badges
+
+![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
+
+Badges aren't necessary, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time.
+
+## How to Contribute
+
+This is the ${contribute} section
+
+## Tests
+
+This is the ${test} section
+
+## Questions?
+
+This is the ${questions} section`;
 
 // TODO: Create a function to initialize app
 function init() {
     inquirer
     .prompt([
       {
-        type: 'input',
-        message: 'What is your name?',
-        name: 'username',
-      },
-      {
-        type: 'input',
-        message: 'What city do you live in?',
-        name: 'city',
-      },
-      {
-        type: 'input',
-        message: 'Use one sentence to describe yourself',
-        name: 'bio',
+          type: 'input',
+          message: `What is your project's title?`,
+          name: 'title',
       },
       {
           type: 'input',
-          message: 'What is your LinkedIn Url?',
-          name: 'liurl',
+          message: 'Describe your project',
+          name: 'description',
       },
       {
           type: 'input',
-          message: 'What is your GitHub Url?',
-          name: 'ghurl',
+          message: 'What is the installation process?',
+          name: 'installation',
+      },
+      {
+          type: 'input',
+          message: 'How is your project used?',
+          name: 'usage',
+      },
+      {
+          type: 'input',
+          message: 'What License does your project use?',
+          name: 'license',
+      },
+      {
+        type: 'input',
+        message: 'How does someone contribute to your project? If allowed at all.',
+        name: 'contribute',
+      },
+      {
+        type: 'input',
+        message: 'How does someone test your project?',
+        name: 'test',
+      },
+      {
+        type: 'input',
+        message: 'What is a good email for people to send quetions to?',
+        name: 'questions',
       },
     ])
     .then((response) =>
