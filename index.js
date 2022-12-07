@@ -3,15 +3,65 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 
 // TODO: Create an array of questions for user input
-const questions = [];
+const questions = [
+  {
+      type: 'input',
+      message: `What is your project's title?`,
+      name: 'title',
+  },
+  {
+      type: 'input',
+      message: 'Describe your project',
+      name: 'description',
+  },
+  {
+      type: 'input',
+      message: 'What is the installation process?',
+      name: 'installation',
+  },
+  {
+      type: 'input',
+      message: 'How is your project used?',
+      name: 'usage',
+  },
+  {
+      type: 'list',
+      message: 'What License does your project use?',
+      choices: [ "Choice A", "choice B" ],
+      name: 'license',
+  },
+  {
+    type: 'input',
+    message: 'How does someone contribute to your project? If allowed at all.',
+    default: 'N/A',
+    name: 'contribute',
+  },
+  {
+    type: 'input',
+    message: 'How does someone test your project?',
+    default: 'N/A',
+    name: 'test',
+  },
+  {
+    type: 'input',
+    message: 'What is your GitHub account?',
+    name: 'github',
+  },
+  {
+    type: 'input',
+    message: 'What is a good email for people to send quetions to?',
+    name: 'email',
+  },];
 
 // TODO: Create a function to write README file
-const writeToFile = ({title, description, installation, usage, license, contribute, test, questions}) => 
+const writeToFile = ({title, description, installation, usage, license, contribute, test, github, email}) => 
 `# ${title}
+
+![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
 
 ## Description
 
-This is the ${description} section
+${description}
 
 ## Table of Contents
 
@@ -24,79 +74,35 @@ This is the ${description} section
 
 ## Installation
 
-This is the ${installation} section
+${installation}
 
 ## Usage
 
-This is the ${usage} section
+${usage}
 
 ## License
 
-This is the ${license} section
-
-## Badges
-
-![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
-
-Badges aren't necessary, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time.
+This application is covered under the ${license} license.
 
 ## How to Contribute
 
-This is the ${contribute} section
+${contribute}
 
 ## Tests
 
-This is the ${test} section
+${test}
 
 ## Questions?
 
-This is the ${questions} section`;
+Send any inquires to ${email}
+
+GitHub Account:
+https://github.com/${github}`;
 
 // TODO: Create a function to initialize app
 function init() {
     inquirer
-    .prompt([
-      {
-          type: 'input',
-          message: `What is your project's title?`,
-          name: 'title',
-      },
-      {
-          type: 'input',
-          message: 'Describe your project',
-          name: 'description',
-      },
-      {
-          type: 'input',
-          message: 'What is the installation process?',
-          name: 'installation',
-      },
-      {
-          type: 'input',
-          message: 'How is your project used?',
-          name: 'usage',
-      },
-      {
-          type: 'input',
-          message: 'What License does your project use?',
-          name: 'license',
-      },
-      {
-        type: 'input',
-        message: 'How does someone contribute to your project? If allowed at all.',
-        name: 'contribute',
-      },
-      {
-        type: 'input',
-        message: 'How does someone test your project?',
-        name: 'test',
-      },
-      {
-        type: 'input',
-        message: 'What is a good email for people to send quetions to?',
-        name: 'questions',
-      },
-    ])
+    .prompt(questions)
     .then((response) =>
     fs.writeFile('README.md', writeToFile(response), (err) =>
     err ? console.error(err) : console.log('Commit logged!')
