@@ -27,12 +27,12 @@ const questions = [
   {
       type: 'list',
       message: 'What License does your project use?',
-      choices: [ "Choice A", "choice B" ],
+      choices: ['MIT', 'GPLv2', 'Apache', 'Other', 'None'],
       name: 'license',
   },
   {
     type: 'input',
-    message: 'How does someone contribute to your project? If allowed at all.',
+    message: 'How would someone contribute to your project? If allowed at all.',
     default: 'N/A',
     name: 'contribute',
   },
@@ -57,7 +57,7 @@ const questions = [
 const writeToFile = ({title, description, installation, usage, license, contribute, test, github, email}) => 
 `# ${title}
 
-![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
+![license](https://img.shields.io/badge/License-${license}-brightgreen)
 
 ## Description
 
@@ -84,7 +84,7 @@ ${usage}
 
 This application is covered under the ${license} license.
 
-## How to Contribute
+## Contributing
 
 ${contribute}
 
@@ -105,7 +105,7 @@ function init() {
     .prompt(questions)
     .then((response) =>
     fs.writeFile('README.md', writeToFile(response), (err) =>
-    err ? console.error(err) : console.log('Commit logged!')
+    err ? console.error(err) : console.log('README Created!')
   ));
 }
 
